@@ -1,5 +1,7 @@
 # ClinicalBenchPT
 
+*This is an anonymous repository submitted for peer review. All identifying information has been removed to preserve double-blind review.*
+
 A comprehensive toolkit for processing and preparing clinical NLP datasets for benchmarking in Portuguese.
 
 <img src="imgs/benchmark-datasets.png" alt="Benchmark datasets overview" width="50%">
