@@ -1,0 +1,162 @@
+{
+  "@context": {
+    "@language": "pt",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform",
+    "wd": "https://www.wikidata.org/wiki/"
+  },
+  "@type": "sc:Dataset",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "name": "FallDetection-FAL",
+  "license": "AGPL-3.0",
+  "version": "1.0",
+  "description": "Binary classification dataset for fall detection from Portuguese clinical evolution notes. Contains clinical notes from hospitalized patients, with labels indicating whether the patient experienced a fall during hospitalization. This is a critical patient safety task in healthcare settings. This dataset was processed and standardized from the original corpus. This file contains only Croissant metadata; the preprocessed data is NOT distributed. Users must obtain the original version from the repository and execute the provided preprocessing script.",
+  "url": "https://github.com/lisaterumi/clinicalbenchpt",
+  "citation": "Please cite the original authors' work when using this dataset (https://ieeexplore.ieee.org/document/8941806/). When using the processed version, please also cite our work.",
+  "keywords": [
+    "classification",
+    "fall detection",
+    "patient safety",
+    "clinical notes",
+    "Portuguese",
+    "NLP",
+    "medical informatics",
+    "hospital safety"
+  ],
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "source-repository",
+      "name": "source-repository",
+      "description": "Original dataset repository on GitHub. Data must be downloaded from this source and processed using the provided scripts.",
+      "contentUrl": "https://github.com/pln-pucrs/fall-detection",
+      "encodingFormat": "application/zip",
+      "sha256": "dummy"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "train.jsonl",
+      "name": "train.jsonl",
+      "description": "Processed training set (generated after running preprocessing scripts). Contains 862 examples.",
+      "encodingFormat": "application/jsonlines",
+      "contentUrl": "../data/fall_detection/train.jsonl",
+      "sha256": "b3b364b972d715f026b921a95157dc3202ebb819e7827b0ff510490dd7a8d103"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "dev.jsonl",
+      "name": "dev.jsonl",
+      "description": "Processed development set. Contains 108 examples.",
+      "encodingFormat": "application/jsonlines",
+      "contentUrl": "../data/fall_detection/train.jsonl",
+      "sha256": "032915d613392ee7eb982dccfa38515dbc6b96ee8c4ab0fa1cea78c27aa6324e"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "test.jsonl",
+      "name": "test.jsonl",
+      "description": "Processed test set. Contains 108 examples.",
+      "encodingFormat": "application/jsonlines",
+      "contentUrl": "../data/fall_detection/train.jsonl",
+      "sha256": "a309afd10e1ab5e0cb6eee7e7e658fbe77b4e995d33057edb0617ef132b129c3"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "classification-examples",
+      "name": "classification-examples",
+      "description": "Clinical evolution notes with fall detection labels",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "classification-examples/id",
+          "name": "id",
+          "description": "Unique identifier for the clinical note",
+          "dataType": "sc:Text",
+          "source": [
+            { "fileObject": { "@id": "train.jsonl"}, "extract": {"column": "id"} },
+            { "fileObject": { "@id": "dev.jsonl" }, "extract": {"column": "id"} },
+            { "fileObject": { "@id": "test.jsonl" }, "extract": {"column": "id"} }
+          ]
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "classification-examples/Evolucao",
+          "name": "Evolucao",
+          "description": "Clinical evolution note text in Portuguese, containing patient status, diagnoses (ICD codes), medical history, current symptoms, treatment notes, and clinical observations",
+          "dataType": "sc:Text",
+          "source": [
+            { "fileObject": { "@id": "train.jsonl"}, "extract": {"column": "Evolucao"} },
+            { "fileObject": { "@id": "dev.jsonl" }, "extract": {"column": "Evolucao"} },
+            { "fileObject": { "@id": "test.jsonl" }, "extract": {"column": "Evolucao"} }
+          ]
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "classification-examples/Target",
+          "name": "Target",
+          "description": "Binary label indicating fall occurrence: 0 (no fall) or 1 (fall occurred)",
+          "dataType": "sc:Integer",
+          "source": [
+            { "fileObject": { "@id": "train.jsonl"}, "extract": {"column": "Target"} },
+            { "fileObject": { "@id": "dev.jsonl" }, "extract": {"column": "Target"} },
+            { "fileObject": { "@id": "test.jsonl" }, "extract": {"column": "Target"} }
+          ]
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "classification-examples/task",
+          "name": "task",
+          "description": "Task type identifier (always 'classification' for this dataset)",
+          "dataType": "sc:Text",
+          "source": [
+            { "fileObject": { "@id": "train.jsonl"}, "extract": {"column": "task"} },
+            { "fileObject": { "@id": "dev.jsonl" }, "extract": {"column": "task"} },
+            { "fileObject": { "@id": "test.jsonl" }, "extract": {"column": "task"} }
+          ]
+         }
+      ]
+    }
+  ]
+}

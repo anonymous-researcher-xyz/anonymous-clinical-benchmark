@@ -1,0 +1,171 @@
+{
+  "@context": {
+    "@language": "pt",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform",
+    "wd": "https://www.wikidata.org/wiki/"
+  },
+  "@type": "sc:Dataset",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "name": "PortugueseClinicalNER (aka ClinPT)",
+  "license": "Unknown (publicly available on GitHub)",
+  "version": "1.0",
+  "description": "Named Entity Recognition dataset for Portuguese clinical texts. Contains annotated clinical case reports with entities such as conditions, anatomical structures, procedures, medications, and temporal expressions. This dataset was processed and standardized from the original corpus. This file contains only Croissant metadata; the preprocessed data is NOT distributed. Users must obtain the original version from the repository and execute the provided preprocessing script.",
+  "url": "https://github.com/lisaterumi/clinicalbenchpt",
+  "citation": "Please cite the original authors' work when using this dataset (https://aclanthology.org/W19-5024/). When using the processed version, please also cite our work.",
+  "keywords": [
+    "named entity recognition",
+    "NER",
+    "clinical",
+    "medical",
+    "healthcare",
+    "Portuguese",
+    "NLP",
+    "sequence labeling"
+  ],
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "source-repository",
+      "name": "source-repository",
+      "description": "Original dataset repository on GitHub. Data must be downloaded from this source and processed using the provided scripts.",
+      "contentUrl": "https://github.com/fabioacl/PortugueseClinicalNER",
+      "encodingFormat": "application/zip",
+      "sha256": "dummy"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "train.jsonl",
+      "name": "train.jsonl",
+      "description": "Processed training set (generated after running preprocessing scripts). Contains 224 examples.",
+      "encodingFormat": "application/jsonlines",
+      "contentUrl": "../data/clinical_ner/train.jsonl",
+      "sha256": "b041eeb0800c0b66da9241aa67d48df795d1a7670d73421d6c88fadf211f6677"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "dev.jsonl",
+      "name": "dev.jsonl",
+      "description": "Processed development set. Contains 28 examples.",
+      "encodingFormat": "application/jsonlines",
+      "contentUrl": "../data/clinical_ner/dev.jsonl",
+      "sha256": "608f71c592b3fcb40527a58091c6d576d2da674d437465c0fc5c258961322415"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "test.jsonl",
+      "name": "test.jsonl",
+      "description": "Processed test set. Contains 29 examples.",
+      "encodingFormat": "application/jsonlines",
+      "contentUrl": "../data/clinical_ner/test.jsonl",
+      "sha256": "0cbd5f8ab356cf80f62b23fbf063c7137cce5b2358886269d6cbc54cf385c2ff"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "ner-examples",
+      "name": "ner-examples",
+      "description": "Clinical text examples with named entity annotations",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "ner-examples/id",
+          "name": "id",
+          "description": "Unique identifier for the clinical case",
+          "dataType": "sc:Text",
+          "source": [
+            { "fileObject": { "@id": "train.jsonl"}, "extract": {"column": "id"} },
+            { "fileObject": { "@id": "dev.jsonl" }, "extract": {"column": "id"} },
+            { "fileObject": { "@id": "test.jsonl" }, "extract": {"column": "id"} }
+          ]
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "ner-examples/text",
+          "name": "text",
+          "description": "Clinical case report text in Portuguese",
+          "dataType": "sc:Text",
+         "source": [
+            { "fileObject": { "@id": "train.jsonl"}, "extract": {"column": "text"} },
+            { "fileObject": { "@id": "dev.jsonl" }, "extract": {"column": "text"} },
+            { "fileObject": { "@id": "test.jsonl" }, "extract": {"column": "text"} }
+          ]
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "ner-examples/tags",
+          "name": "tags",
+          "description": "Named entity annotations organized by entity type. Contains lists of entities for categories such as Tempo (Time), Condição (Condition), Negação (Negation), Característica (Characteristic), Evolução (Evolution), Procedimento (Procedure), Resultado (Result), Anatomia (Anatomy), Observação (Observation), and Terapia (Therapy)",
+          "dataType": "sc:Text",
+          "source": [
+            { "fileObject": { "@id": "train.jsonl"}, "extract": {"column": "task"}, 
+                "transform": {
+                "replace": "*/Please refer to the 'tags' field in the original dataset."
+            } },
+            { "fileObject": { "@id": "dev.jsonl" }, "extract": {"column": "task"} , 
+                "transform": {
+                "replace": "*/Please refer to the 'tags' field in the original dataset."
+            } },
+            { "fileObject": { "@id": "test.jsonl" }, "extract": {"column": "task"} , 
+              "transform": {
+              "replace": "*/Please refer to the 'tags' field in the original dataset."
+            } }
+          ]
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "ner-examples/task",
+          "name": "task",
+          "description": "Task type identifier (always 'ner' for this dataset)",
+          "dataType": "sc:Text",
+          "source": [
+            { "fileObject": { "@id": "train.jsonl"}, "extract": {"column": "task"} },
+            { "fileObject": { "@id": "dev.jsonl" }, "extract": {"column": "task"} },
+            { "fileObject": { "@id": "test.jsonl" }, "extract": {"column": "task"} }
+          ]
+         }
+      ]
+    }
+  ]
+}

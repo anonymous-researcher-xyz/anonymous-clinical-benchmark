@@ -1,0 +1,163 @@
+{
+  "@context": {
+    "@language": "pt",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform",
+    "wd": "https://www.wikidata.org/wiki/"
+  },
+  "@type": "sc:Dataset",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "name": "Wikidoc-PT-QA",
+  "license": "Apache-2.0",
+  "version": "1.0",
+  "description": "Medical question answering dataset in Portuguese. Contains questions and detailed answers about various medical topics, diseases, treatments, and healthcare information translated/adapted from Wikidoc sources. This dataset was processed and standardized from the original corpus. This file contains only Croissant metadata; the preprocessed data is NOT distributed. Users must obtain the original version from Hugging Face and execute the provided preprocessing script.",
+  "url": "https://github.com/lisaterumi/clinicalbenchpt",
+  "citation": "Please cite the original author's work when using this dataset. When using the processed version, please also cite our work.",
+  "keywords": [
+    "question answering",
+    "QA",
+    "medical",
+    "healthcare",
+    "wikidoc",
+    "Portuguese",
+    "NLP",
+    "medical QA",
+    "clinical information"
+  ],
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "source-repository",
+      "name": "source-repository",
+      "description": "Original dataset repository on Hugging Face. Data must be downloaded from this source and processed using the provided scripts.",
+      "contentUrl": "https://huggingface.co/datasets/rhaymison/medicine-medical_meadow_wikidoc_pt",
+      "encodingFormat": "application/json",
+      "sha256": "dummy"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "train.jsonl",
+      "name": "train.jsonl",
+      "description": "Processed training set (generated after running preprocessing scripts). Contains 224 examples.",
+      "encodingFormat": "application/jsonlines",
+      "contentUrl": "../data/wikidoc_pt/train.jsonl",
+      "sha256": "1d0a22e62c659ee4c433a9d10e0e0e43064525147da2dc93cf3c157d5a2e077b"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "dev.jsonl",
+      "name": "dev.jsonl",
+      "description": "Processed development set. Contains 7881 examples.",
+      "encodingFormat": "application/jsonlines",
+      "contentUrl": "../data/wikidoc_pt/dev.jsonl",
+      "sha256": "f2192df17a140dc719eb727c763e41575300fecbf971a2f687589defacb4145e"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "test.jsonl",
+      "name": "test.jsonl",
+      "description": "Processed test set. Contains 986 examples.",
+      "encodingFormat": "application/jsonlines",
+      "contentUrl": "../data/wikidoc_pt/test.jsonl",
+      "sha256": "982e5722f29f1f54912776af8caaab8ce4f4fd803f3d1c3baab963446415bafb"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "questions",
+      "name": "questions",
+      "description": "Question and answer examples about medical topics",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "questions/id",
+          "name": "id",
+          "description": "Unique identifier for the example",
+          "dataType": "sc:Text",
+          "source": [
+            { "fileObject": { "@id": "train.jsonl"}, "extract": {"column": "id"} },
+            { "fileObject": { "@id": "dev.jsonl" }, "extract": {"column": "id"} },
+            { "fileObject": { "@id": "test.jsonl" }, "extract": {"column": "id"} }
+          ]
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "questions/question",
+          "name": "question",
+          "description": "Question about a medical topic, disease, treatment, or health-related information",
+          "dataType": "sc:Text",
+           "source": [
+            { "fileObject": { "@id": "train.jsonl" }, "extract": {"column": "question"} },
+            { "fileObject": { "@id": "dev.jsonl" }, "extract": {"column": "question"} },
+            { "fileObject": { "@id": "test.jsonl" }, "extract": {"column": "question"} }
+          ]
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "questions/answer",
+          "name": "answer",
+          "description": "Detailed answer providing medical information from Wikidoc sources",
+          "dataType": "sc:Text",
+           "source": [
+            { "fileObject": { "@id": "train.jsonl" }, "extract": {"column": "answer"} },
+            { "fileObject": { "@id": "dev.jsonl" }, "extract": {"column": "answer"} },
+            { "fileObject": { "@id": "test.jsonl" }, "extract": {"column": "answer"} }
+          ]
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "questions/task",
+          "name": "task",
+          "description": "Task type identifier (always 'qa' for this dataset)",
+          "dataType": "sc:Text",
+          "source": [
+            { "fileObject": { "@id": "train.jsonl" }, "extract": {"column": "task"} },
+            { "fileObject": { "@id": "dev.jsonl" }, "extract": {"column": "task"} },
+            { "fileObject": { "@id": "test.jsonl" }, "extract": {"column": "task"} }
+          ]
+       }
+      ]
+    }
+  ]
+}

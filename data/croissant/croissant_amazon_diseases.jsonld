@@ -1,0 +1,162 @@
+{
+ "@context": {
+    "@language": "pt",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform",
+    "wd": "https://www.wikidata.org/wiki/"
+  },
+  "@type": "sc:Dataset",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "name": "AmazonDiseases-QA",
+  "license": "Unknown (publicly available on Hugging Face)",
+  "version": "1.0",
+  "description": "Question answering dataset about neglected tropical diseases in Portuguese. Contains questions and answers about diseases prevalent in the Amazon region in Brazil. This dataset was processed and standardized from the original corpus. This file contains only Croissant metadata; the preprocessed data is NOT distributed. Users must obtain the original version from Hugging Face and execute the provided preprocessing script.",
+  "url": "https://github.com/lisaterumi/clinicalbenchpt",
+  "citation": "Please cite the original author's work when using this dataset. When using the processed version, please also cite our work.",
+  "keywords": [
+    "question answering",
+    "QA",
+    "neglected diseases",
+    "tropical diseases",
+    "healthcare",
+    "Brazilian Portuguese",
+    "NLP",
+    "medical QA"
+  ],
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "source-repository",
+      "name": "source-repository",
+      "description": "Original dataset repository on Hugging Face. Data must be downloaded from this source and processed using the provided scripts.",
+      "contentUrl": "https://huggingface.co/datasets/juniofreitas/dataset-chatbot-doencas_negligenciadas",
+      "encodingFormat": "application/json",
+      "sha256": "dummy"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "train.jsonl",
+      "name": "train.jsonl",
+      "description": "Processed training set (generated after running preprocessing scripts). Contains 3528 examples.",
+      "encodingFormat": "application/jsonlines",
+      "contentUrl": "../data/amazon_diseases/train.jsonl",
+      "sha256": "6500efc81d4e7a4d1c2989c65e525a8ded75c88ddc8aa36280b5f76dd1ad2d68"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "dev.jsonl",
+      "name": "dev.jsonl",
+      "description": "Processed development set. Contains 441 examples.",
+      "encodingFormat": "application/jsonlines",
+      "contentUrl": "../data/amazon_diseases/dev.jsonl",
+      "sha256": "38cd07da569eba82f2635e7cfe28292de946a4a87a64c3e8d6b32c7868b329c4"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "test.jsonl",
+      "name": "test.jsonl",
+      "description": "Processed test set. Contains 442 examples.",
+      "encodingFormat": "application/jsonlines",
+      "contentUrl": "../data/amazon_diseases/test.jsonl",
+      "sha256": "843b18a1c0c8bf1ac74420a7e3e1a9fd7d6b05973f24d89442ff851a166d3eab"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "questions",
+      "name": "questions",
+      "description": "Question and answer examples about amazon diseases",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "questions/id",
+          "name": "id",
+          "description": "Unique identifier for the example",
+          "dataType": "sc:Text",
+          "source": [
+            { "fileObject": { "@id": "train.jsonl"}, "extract": {"column": "id"} },
+            { "fileObject": { "@id": "dev.jsonl" }, "extract": {"column": "id"} },
+            { "fileObject": { "@id": "test.jsonl" }, "extract": {"column": "id"} }
+          ]
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "questions/Question",
+          "name": "Question",
+          "description": "Question about a tropical disease",
+          "dataType": "sc:Text",
+          "source": [
+            { "fileObject": { "@id": "train.jsonl" }, "extract": {"column": "Question"} },
+            { "fileObject": { "@id": "dev.jsonl" }, "extract": {"column": "Question"} },
+            { "fileObject": { "@id": "test.jsonl" }, "extract": {"column": "Question"} }
+          ]
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "questions/Response",
+          "name": "Response",
+          "description": "Expected answer providing information about the disease",
+          "dataType": "sc:Text",
+          "source": [
+            { "fileObject": { "@id": "train.jsonl" }, "extract": {"column": "Response"} },
+            { "fileObject": { "@id": "dev.jsonl" }, "extract": {"column": "Response"} },
+            { "fileObject": { "@id": "test.jsonl" }, "extract": {"column": "Response"} }
+          ]
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "questions/task",
+          "name": "task",
+          "description": "Task type identifier (always 'qa' for this dataset)",
+          "dataType": "sc:Text",
+          "source": [
+            { "fileObject": { "@id": "train.jsonl" }, "extract": {"column": "task"} },
+            { "fileObject": { "@id": "dev.jsonl" }, "extract": {"column": "task"} },
+            { "fileObject": { "@id": "test.jsonl" }, "extract": {"column": "task"} }
+          ]
+        }
+      ]
+    }
+  ]
+}

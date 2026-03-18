@@ -1,0 +1,158 @@
+{
+"@context": {
+    "@language": "pt",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform",
+    "wd": "https://www.wikidata.org/wiki/"
+  },
+
+  "@type": "sc:Dataset",
+  "name": "ABFCarma-QA",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "version": "1.0.0",
+  "datePublished": "2025-11-24",
+  "license": "MIT License (original dataset)",
+  "description": "Question answering dataset about medications in Portuguese. Contains factual questions about active ingredients in commercial medicines. This dataset was processed and standardized from the original corpus. This file contains only Croissant metadata; the preprocessed data is NOT distributed. Users must obtain the original version from the repository and execute the provided preprocessing script.",
+  "url": "https://github.com/lisaterumi/clinicalbenchpt",
+  "citation": "Please cite the original authors' work when using this dataset. When using the processed version, please also cite our work.",
+  "keywords": [
+    "question answering",
+    "QA",
+    "medications",
+    "pharmacy",
+    "Brazilian Portuguese",
+    "NLP",
+    "factual QA"
+  ],
+  
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "source-repository",
+      "name": "source-repository",
+      "description": "Original corpus repository. Data must be downloaded from this source and processed using the provided scripts.",
+      "contentUrl": "https://github.com/elossio/corpus",
+      "encodingFormat": "application/zip",
+      "sha256": "dummy"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "train.jsonl",
+      "name": "train.jsonl",
+      "contentUrl": "../data/abcfarma_qa/train.jsonl",
+      "encodingFormat": "application/jsonlines",
+      "description": "Processed training set (generated after running preprocessing scripts). Contains 2043 examples.",
+      "sha256": "3a26bff34ab990560c85bb50054809fd8448388e47145d6f9e83c7a52e7c5cdf"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "dev.jsonl",
+      "name": "dev.jsonl",
+      "contentUrl": "../data/abcfarma_qa/dev.jsonl",
+      "encodingFormat": "application/jsonlines",
+      "description": "Processed development set. Contains 255 examples.",
+      "sha256": "1d0af52002557fe67110a92cfabb58c037d2a437504cf1451b510bb3fca719c3"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "test.jsonl",
+      "name": "test.jsonl",
+      "contentUrl": "../data/abcfarma_qa/test.jsonl",
+      "encodingFormat": "application/jsonlines",
+      "description": "Processed test set. Contains 256 examples.",
+      "sha256": "c93fc1417a4ff2763d2d0b83a7273127b837fa84868141cd68c7fa5885b5ad7c"
+    }
+  ],
+
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "questions",
+      "name": "questions",
+      "description": "Perguntas e respostas sobre medicamentos.",
+
+      "key": { "@id": "id" },
+
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "questions/id",
+          "name": "questions/id",
+          "description": "Identificador único",
+          "dataType": "sc:Integer",
+          "source": [
+            { "fileObject": { "@id": "train.jsonl"}, "extract": {"column": "id"} },
+            { "fileObject": { "@id": "dev.jsonl" }, "extract": {"column": "id"} },
+            { "fileObject": { "@id": "test.jsonl" }, "extract": {"column": "id"} }
+          ]
+        },
+
+        {
+          "@type": "cr:Field",
+          "@id": "questions/question",
+          "name": "questions/question",
+          "description": "Pergunta textual sobre medicamentos.",
+          "dataType": "sc:Text",
+          "source": [
+            { "fileObject": { "@id": "train.jsonl" }, "extract": {"column": "question"} },
+            { "fileObject": { "@id": "dev.jsonl" }, "extract": {"column": "question"} },
+            { "fileObject": { "@id": "test.jsonl" }, "extract": {"column": "question"} }
+          ]
+        },
+
+        {
+          "@type": "cr:Field",
+          "@id": "questions/answer",
+          "name": "questions/answer",
+          "description": "Princípio ativo esperado como resposta.",
+          "dataType": "sc:Text",
+          "source": [
+            { "fileObject": { "@id": "train.jsonl" }, "extract": {"column": "answer"} },
+            { "fileObject": { "@id": "dev.jsonl" }, "extract": {"column": "answer"} },
+            { "fileObject": { "@id": "test.jsonl" }, "extract": {"column": "answer"} }
+          ]
+        }
+      ]
+    }
+  ]
+}
