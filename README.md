@@ -345,5 +345,3 @@ This benchmark integrates multiple publicly available and curated datasets. We t
 - MultiClinSum PT
 - SemClinBr
 - Portuguese clinical NER (aka ClinPT)
-
-This work was supported by the National Council for Scientific and Technological Development (CNPq), Brazil, under Grant No. 441610/2023-4 and 201655/2024-1. We also thank the authors and contributors of the developers and maintainers of the language models evaluated in our experiments.
